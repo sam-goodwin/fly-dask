@@ -1,0 +1,22 @@
+[project]
+name = "fly-dask"
+version = "0.1.0"
+description = ""
+authors = [{name = "Sam Goodwin", email ="sam@packyak.ai"}]
+requires-python = ">=3.8"
+dependencies = [
+    "dask_cloudprovider",
+    "dask[array]",
+    "distributed",
+    "pydantic",
+    "httpx",
+]
+[project.optional-dependencies]
+dev = ["ruff", "python-dotenv"]
+
+[tool.fly]
+name = "fly-dask"
+image = "packyak/fly-dask"
+requires = ["setuptools>=40.8.0", "wheel"]
+build-backend = "setuptools.build_meta"
+

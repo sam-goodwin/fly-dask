@@ -1,0 +1,16 @@
+{
+  "exclude": [
+    "**/node_modules",
+    "**/cdk.out",
+    "**/.venv",
+    "**/dist",
+    "**/lib",
+    "**/pycache"
+  ],
+  "reportMissingTypeStubs": false,
+  "reportUnknownVariableType": false,
+  "reportUnknownMemberType": false,
+  "reportPrivateImportUsage": false,
+  "reportPrivateUsage": false,
+  "reportOptionalMemberAccess": false
+}
