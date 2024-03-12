@@ -2,3 +2,5 @@
 .env
 __pycache__
 node_modules
+/wireguard.conf
+fly_dask.egg-info

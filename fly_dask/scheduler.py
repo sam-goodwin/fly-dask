@@ -6,7 +6,6 @@ from dask_cloudprovider.generic.vmcluster import (
 from distributed.core import Status
 from distributed.scheduler import Scheduler as _Scheduler
 from distributed.utils import cli_keywords
-import dask
 
 from fly_dask.machine import FlyMachine
 
@@ -54,7 +53,6 @@ class FlyMachineScheduler(SchedulerMixin, FlyMachine):
             #     )
             # },
         )
-
         self.name = f"dask-{self.cluster.uuid}-scheduler"
         self.port = scheduler_options.get("port", 8786)
         self.command = [

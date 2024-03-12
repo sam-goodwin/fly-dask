@@ -10,3 +10,4 @@ ADD pyproject.toml pyproject.toml
 
 RUN uv venv
 RUN uv pip install -r pyproject.toml
+

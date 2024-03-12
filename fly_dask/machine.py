@@ -17,8 +17,8 @@ if TYPE_CHECKING:
 class FlyMachine(VMInterface):
     def __init__(
         self,
-        cluster: "FlyMachineCluster | None" = None,
-        image: str | None = None,
+        cluster: "FlyMachineCluster",
+        image: str,
         config: dict[str, Any] | None = None,
         region: str | None = None,
         vm_size: MachineSize | None = None,

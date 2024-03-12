@@ -4,7 +4,7 @@ from dask_cloudprovider.generic.vmcluster import (
     VMCluster,
 )
 from fly_dask.scheduler import FlyMachineScheduler
-from fly_dask.sdk.constants import FlyRegion, MachineSize
+from fly_dask.sdk.constants import FlyRegion, GPUKind, MachineSize
 from fly_dask.worker import FlyMachineWorker
 
 
@@ -138,6 +138,8 @@ class FlyMachineCluster(VMCluster):
         vm_size: MachineSize | None = None,
         memory_mb: int = 512,
         cpus: int = 1,
+        gpus: int = 0,
+        gpu_kind: GPUKind = "a100-pcie-40gb",
         debug: bool = False,
         **kwargs: Any,
     ):
@@ -158,12 +160,18 @@ class FlyMachineCluster(VMCluster):
             "token": api_token,
             "memory_mb": memory_mb,
             "cpus": cpus,
+            "gpus": gpus,
+            "gpu_kind": gpu_kind,
             "app_name": self.app_name,
             "protocol": self.config.get("protocol", "tcp"),
             "security": self.config.get("security", False),
             "host": "fly-local-6pn",
         }
-        self.worker_options = {**self.options}
+        self.worker_options = {
+            **self.options,
+            "gpus": gpus,
+            "gpu_kind": gpu_kind,
+        }
         self.api_token = cast(str, self.options["token"])
         self.security = cast(bool, self.options["security"])
         super().__init__(
@@ -173,3 +181,11 @@ class FlyMachineCluster(VMCluster):
             scheduler_options={**self.options},
             **kwargs,
         )
+
+    @property
+    def dashboard_link(self) -> str:
+        """Return the URL of the Dask dashboard."""
+        import re
+
+        host = re.search(r"tcp://\[([^\]]+)\]", self.scheduler.address).group(1)  # type: ignore
+        return f"http://[{host}]:8787/status"

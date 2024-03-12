@@ -193,7 +193,7 @@ class Fly:
         # Raise an exception if HTTP status code is not 200.
         if r.status_code != 200:
             raise MachineInterfaceError(
-                message=f"{r.status_code}: Unable to create machine!"
+                message=f"{r.status_code}: Unable to create machine!\n{r.json()['error']}"
             )
 
         return FlyMachineDetails(**r.json())

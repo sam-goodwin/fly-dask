@@ -1,6 +1,15 @@
 from enum import Enum
+from typing import Literal
 
 # @see https://github.com/bwhli/fly-python-sdk/blob/main/fly_python_sdk/constants.py
+
+GPUKind = (
+    Literal[
+        "a100-pcie-40gb"
+    ]  # NVIDIA A100 PCIe 40GB, available in: "ams", "iad", "mia", "sjc", "syd"
+    | Literal["a100-40gb"]  # NVIDIA A100 40GB, available in: "ord"
+    | Literal["l40s"]  # NVIDIA Tesla T4, available in: "ord"
+)
 
 
 class FlyRegion(Enum):

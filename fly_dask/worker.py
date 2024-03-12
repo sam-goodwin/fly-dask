@@ -35,7 +35,7 @@ class FlyMachineWorker(WorkerMixin, FlyMachine):
         else:
             self.worker_class = worker_class
             self.command = [
-                "python",
+                "./.venv/bin/python",
                 "-m",
                 "distributed.cli.dask_spec",
                 self.scheduler,
@@ -44,7 +44,6 @@ class FlyMachineWorker(WorkerMixin, FlyMachine):
                     {
                         "cls": self.worker_class,
                         "opts": {
-                            **worker_options,
                             "name": self.name,
                             "host": "fly-local-6pn",
                         },
